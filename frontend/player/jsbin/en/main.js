@@ -1,0 +1,1 @@
+(()=>{"use strict";var n=window;n.Y&&n.Y.now?n.Y.now:n.performance&&n.performance.timing&&n.performance.now&&n.performance.timing.navigationStart})();

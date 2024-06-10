@@ -1,0 +1,23 @@
+{
+  "entrypoint": "index.html",
+  "shell": "app.js",
+  "sources": [
+    "**/*",
+    "images/**/*",
+    "package.json"
+  ],
+  "extraDependencies": [
+    "manifest.json",
+    "node_modules/@webcomponents/webcomponentsjs/webcomponents-loader.js"
+  ],
+  "builds": [
+    {
+      "name": "shady",
+      "css": {
+        "shady": true
+      } ,"js": {
+        "transformModulesToAmd": true
+      }
+    }
+  ]
+}

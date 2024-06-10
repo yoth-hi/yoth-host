@@ -1,3 +1,4 @@
+import Data from "../controllers/Data.js"
 export const window_ = window;
 export const now =
     window_.Y && window_.Y.now
@@ -46,3 +47,8 @@ export class Url {
       return url
     }
 }
+
+export function ManagerData(a) {
+		a instanceof Data || (a = new Data(a));
+		return a
+};

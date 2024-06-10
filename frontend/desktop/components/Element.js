@@ -1,7 +1,17 @@
+export class Element {};
 //import { ElementMixin, version } from '@polymer/polymer/lib/mixins/element-mixin.js';
 import { ElementMixin, version } from 'https://unpkg.com/@polymer/polymer@3.5.1//lib/mixins/element-mixin.js';
-export class Element {};
-
+export function SetElementIn(selector, prototype, name, startValue){
+  let value = startValue;
+  Object.defineProperties(prototype,{[name]:{
+    configurable:!0,
+    enumerable:!0,
+    get:function(){ 
+      const element = this.$[selector];
+      return element
+    },
+  }});
+}
 export function Register(class_, name, html) {
   class_.prototype.is = name;
   const component = create(class_, name, html);
@@ -11,7 +21,7 @@ export function Html(textHtml){
   let element;
   return function(){
     element = document.createElement("template");
-    element.innerHTML = textHtml
+    element.innerHTML = textHtml?.replace(/[\n ]{2,}/g," ")
     return element
   }
 }
@@ -23,6 +33,11 @@ function create(class_, name, html){
     __styleSheet = null;
     connectedCallback(){
       super.connectedCallback()
+      class_.prototype.attached?.apply(this)
+    }
+    ready(){
+      super.ready()
+      class_.prototype.ready?.apply(this)
     }
     get template(){
       return html()
@@ -35,7 +50,8 @@ function create(class_, name, html){
     }
     _attachDom(dom){
       if(dom){
-        this.hostElement.appendChild(dom)
+       super._attachDom(dom)
+       this.hostElement.appendChild(dom)
       }
     }
   }
@@ -57,7 +73,7 @@ function create(class_, name, html){
   
   return {
     init(element){
-      Tsr.prototype.hostElement = element
+      class_.prototype.hostElement = element
       const comp = new Tsr;
       return comp;
     }
@@ -76,3 +92,9 @@ function RegisterElement({ init }, name){
   customElements.define(name, Element_)
 }
 export { version }
+
+export function listen(element, name, callback){
+  element.addEventListener(name, function(a){
+    callback(a)
+  })
+}

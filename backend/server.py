@@ -2,7 +2,7 @@ from http.server import BaseHTTPRequestHandler, HTTPServer
 from pages import PageMain
 import re
 
-class SimpleHTTPRequestHandler(BaseHTTPRequestHandler):
+class handler(BaseHTTPRequestHandler):
     def do_GET(self):
       if(re.match(r'^\/s\/', self.path)):
           path = re.sub(r'^\/s\/', "frontend/", self.path)
@@ -22,11 +22,8 @@ class SimpleHTTPRequestHandler(BaseHTTPRequestHandler):
           text = PageMain(context) 
           self.wfile.write(text)
 
-def run(server_class=HTTPServer, handler_class=SimpleHTTPRequestHandler, port=8000):
+def run(server_class=HTTPServer, handler_class=handler, port=8000):
     server_address = ('', port)
     httpd = server_class(server_address, handler_class)
     print(f'Starting httpd server on port {port}...')
     httpd.serve_forever()
-
-if __name__ == "__main__":
-    run()

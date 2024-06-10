@@ -1,7 +1,7 @@
 import { clearInterval, setInterval } from "../utils/interval.js";
 import StreamingStartController from "./streamingStartController.js";
 const $H = function(){
-  console.log(...arguments)
+//  console.log(...arguments)
 }
 import SimpleTime from "../utils/SimpleTime.js";
 import { UpdateTime } from "../utils/MediaSourceUtils.js";
@@ -28,13 +28,13 @@ const Lab = function (a) {
 };
 const Mab = function (a) {
     var b = a._mediaElement;
-    console.log(b.Uf(), 0 < b.getDuration(), 0 < wL(b.getBuffered()), 2 <= b.Ck());
-    //	b && a.nJ && !a.videoData.Va && !$H("vfp", a.Sb.timerName) && 2 <= b.Ck() && !b.Ph() && 0 < wL(b.getBuffered()) && a.Sb.tick("vfp");
+ //   console.log(b.Uf(), 0 < b.getDuration(), 0 < wL(b.getBuffered()), 2 <= b._getReadyState());
+    //	b && a.nJ && !a.videoData.Va && !$H("vfp", a.Sb.timerName) && 2 <= b._getReadyState() && !b.Ph() && 0 < wL(b.getBuffered()) && a.Sb.tick("vfp");
     return (b = a._mediaElement) &&
         !a.videoData.Va &&
         0 < b.getDuration() &&
         (b.isPaused() &&
-            2 <= b.Ck() &&
+            2 <= b._getReadyState() &&
             0 < wL(b.getBuffered()) &&
             ($H("pbp", a.Sb?.timerName) || a.Sb?.tick("pbp"),
             !a.videoData.Jm ||
@@ -63,7 +63,7 @@ export default class {
         UpdateTime(this);
     }
     _on(a) {
-        console.log(a.type);
+//console.log(a.type);
         switch (a.type) {
             case "loadstart":
                 Nab(this);

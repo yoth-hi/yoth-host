@@ -7,6 +7,7 @@ class VideoController extends VideoManager {
         this.listener = (c) => {
             this.dispatchEvent(new Event(c.type))//new vV(b, c.type, c));
         };
+        this.j.preload = "auto"
     }
     Ou() {
         return !0;
@@ -67,7 +68,7 @@ class VideoController extends VideoManager {
         oBa();
         this.j.muted = a;
     }
-    Lv() {
+    _getPlayed() {
         return this.j.played || rL([], []);
     }
     getBuffered() {
@@ -108,7 +109,7 @@ class VideoController extends VideoManager {
         a.then(void 0, function () {});
         return a;
     }
-    Ck() {
+    _getReadyState() {
         return this.j.readyState;
     }
     ZH() {
@@ -117,7 +118,7 @@ class VideoController extends VideoManager {
     ph() {
         return this.j.error ? this.j.error.code : null;
     }
-    qf() {
+    _getError() {
         return this.j.error ? this.j.error.message : "";
     }
     getVideoPlaybackQuality() {

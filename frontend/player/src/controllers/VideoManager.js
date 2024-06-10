@@ -4,6 +4,22 @@ import { moveDisableAirplay, notResetMediaSource, supportManagedMediaSource } fr
 const NBa = function(a, b) {
 		a.resource && a.resource.equals(b) || (a.resource && a.resource.dispose(), a.resource = b)
 	};
+export const	getBufferedTime = function(a) {
+		return a && a.length ? a.end(a.length - 1) : NaN
+	};
+	const vL = function(a, b) {
+		if (!a) return NaN;
+		b = tL(a, b);
+		return 0 <= b ? a.end(b) : NaN
+	};
+	const tL = function(a, b) {
+		if (!a) return -1;
+		try {
+			for (var c = 0; c < a.length; c++)
+				if (a.start(c) <= b && a.end(c) >= b) return c
+		} catch (d) {}
+		return -1
+	};
 export default class VideoManager extends Dispose {
     constructor() {
       super()
@@ -12,6 +28,7 @@ export default class VideoManager extends Dispose {
         this._hasEventVolumeChange = this.K = !1;
       this.D = {}///new g.Dd();
         this.qa = null;
+
     }
 
     BG() {
@@ -24,6 +41,7 @@ export default class VideoManager extends Dispose {
         if (!this.Df() || b) {
             b && this.Df() !== b && (this.DG(b), delete this.B, this.C && (this.C.reject(), delete this.C), moveDisableAirplay && supportManagedMediaSource && !window.MediaSource && window.ManagedMediaSource && this._setDisableRemotePlayback(!(null == a || !a.j))), (a && a.j) || this.load(), this._hasEventVolumeChange || (this.addEventListener("volumechange", this.lV), (this._hasEventVolumeChange = !0));
         }
+                
     }
 
     Iq(a, b) {
@@ -110,10 +128,10 @@ export default class VideoManager extends Dispose {
 
     sz() {
         var a = this.getBuffered();
-        return 0 < wL(a) && this.getDuration() ? vL(a, this.getCurrentTime()) : 0;
+        return 0 < getBufferedTime(a) && this.getDuration() ? vL(a, this.getCurrentTime()) : 0;
     }
 
-    Iv() {
+    _getLoadedFraction() {
         var a = this.getDuration();
         return Infinity === a ? 1 : a ? this.sz() / a : 0;
     }
@@ -133,7 +151,7 @@ export default class VideoManager extends Dispose {
                 vrs: "" + this.Ck(),
                 vns: "" + this.ZH(),
                 vec: "" + this.ph(),
-                vemsg: this.qf(),
+                vemsg: this._getError(),
                 vvol: "" + this.getVolume(),
                 vdom: "" + +this.NO(),
                 vsrc: "" + +!!this.Df(),
@@ -141,6 +159,7 @@ export default class VideoManager extends Dispose {
                 vh: "" + a.height
             };
         } catch (b) {
+          console.error(b)
             return {};
         }
     }

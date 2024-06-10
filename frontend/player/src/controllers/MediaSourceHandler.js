@@ -116,8 +116,12 @@ export default class extends Dispose {
         while (data.length) {
           this.listVideoBufferArray.push(data.shift());
         }
-        if (!this._sourceVideo._getIsUpdating()) {
+        const h = this.mediaElement._getError()
+
+        if (!this._sourceVideo._getIsUpdating() && !h) {
           this._sourceVideo.appendBuffer(this.listVideoBufferArray.shift())
+        } else if(h){
+          debugger
         }
     }
 }

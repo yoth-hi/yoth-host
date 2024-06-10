@@ -1,0 +1,29 @@
+{
+  "entrypoint": "index.html",
+  "shell": "app.js",
+  "fragments": [],
+  "sources": [
+    "**/*",
+    "images/**/*",
+    "package.json",
+    "index.html",
+    "app.js"
+  ],
+  "extraDependencies": [
+    "bower_components/webcomponentsjs/*.js",
+    "manifest.json",
+    "node_modules/@webcomponents/webcomponentsjs/webcomponents-loader.js"
+  ],
+  "builds": [
+    {
+      "name": "shady",
+      "css": {
+        "shady": true
+      },
+      "js": {
+        "transformModulesToAmd": true
+      }
+    }
+  ],
+  "moduleResolution": "node"
+}

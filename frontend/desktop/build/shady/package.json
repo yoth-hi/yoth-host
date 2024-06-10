@@ -8,7 +8,6 @@
   },
   "dependencies": {
     "@polymer/polymer": "^3.5.1",
-    "@webcomponents/webcomponentsjs": "^2.8.0",
-    "makeelement": "^0.1.0"
+    "@webcomponents/webcomponentsjs": "^2.8.0"
   }
 }

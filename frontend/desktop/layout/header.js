@@ -11,7 +11,7 @@ const html = Html(`
     position: absolute;
     height: 56px;
     width: 100%;
-    background: #1135;
+    background: var(--app-mastheader-background);
   }
   app-header #content {
     height: 56px;
